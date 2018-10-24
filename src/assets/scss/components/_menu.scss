@@ -1,0 +1,20 @@
+/*** LEFT MENU ***/
+$menuWidth: 320px;
+
+#app {
+	padding-right: $menuWidth;
+	> menu {
+		background-color: $colorPrimaryDark;
+		position: fixed;
+		z-index: 9000;
+		right: 0;
+		// top: 0;
+		bottom: 0;
+		width: $menuWidth;
+		overflow-y: auto;
+		transition: right .4s;
+	}
+	&.sidebar-collapsed > menu {
+		right: $navIconSize - $menuWidth;
+	}
+}

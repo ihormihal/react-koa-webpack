@@ -1,0 +1,26 @@
+.pagination {
+	list-style: none;
+	li {
+		a {
+			@include no-select();
+			display: block;
+			float: left;
+			width: $gap*2;
+			height: $gap*2;
+			line-height: $gap*2;
+			text-align: center;
+			color: color(grey);
+			cursor: pointer;
+			border: 1px solid transparent;
+			border-radius: 50%;
+			transition: background-color 0.3s ease;
+			&:hover {
+				background-color: color(lighten)
+			}
+		}
+		&.active a {
+			background-color: $colorPrimary;
+			color: #fff;
+		}
+	}
+}

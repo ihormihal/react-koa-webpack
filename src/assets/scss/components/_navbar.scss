@@ -1,0 +1,45 @@
+//MOBILE
+.nav-side {
+	.nav.nav-col li {
+		//accordion
+		&.parent {
+			position: relative;
+			> ul {
+				display: none;
+				li {
+					&:first-child { border-top: none; }
+					&:last-child { border-bottom: none; }
+				}
+			}
+			&.active {
+				> ul { display: block; }
+			}
+		}
+
+		a, .link {
+			padding: $gap $gap/2 $gap 0;
+			color: #fff;
+			transition-property: color background-color;
+			transition-duration: 0.3s;
+			transition-timing-function: ease;
+			text-decoration: none;
+			font-weight: 300;
+			i {
+				display: inline-block;
+				width: $navIconSize;
+				text-align: center;
+			}
+		}
+		a:hover {
+			color: darken($colorPrimaryLight, 10%);
+			background-color: rgba(#fff, 0.1);
+		}
+		a.active {
+			background-color: $colorPrimary;
+			color: $colorPrimaryLight;
+		}
+		ul {
+			background-color: color(blue-grey);
+		}
+	}
+}

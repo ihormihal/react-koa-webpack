@@ -1,0 +1,77 @@
+.dropdown {
+	display: inline-block;
+	position: relative;
+	&.block { display: block; }
+	.popup {
+		display: none;
+		visibility: hidden;
+		position: absolute;
+		z-index: 1000;
+		left: 0;
+		background-color: color(white);
+		min-width: 100%;
+		filter: drop-shadow(rgba(0, 0, 0, 0.3) 0 2px 8px);
+		border-radius: $boxRadius;
+
+		transform-origin: 0 0;
+
+		&.popup-right { left: inherit; right: 0;}
+		&.popup-top { 
+			top: auto;
+			bottom: 0; 
+			left: inherit; 
+			right: 0;
+			transform-origin: 0 100%;
+		}
+		&.popup-over { 
+			top: 0;
+			bottom: auto;
+		}
+		// &.popup-xs { min-width: 320px; }
+		// &.popup-sm { min-width: 320px; }
+		// &.popup-lg { min-width: 320px; }
+		// &.popup-xl { min-width: 320px; }
+
+		max-height: 300px;
+		overflow: auto;
+
+		&:not(.tooltip){
+			@include materialDropdown(0.3s);
+		}
+	}
+	.toggle {
+		cursor: pointer;
+	}
+
+	.tooltip {
+		transform-origin: 50% 100%;
+		padding: $gap/2;
+		bottom: 35px;
+		top: auto;
+		min-width: 240px;
+		overflow: visible;
+
+
+		
+		@include materialTooltip(0.3s);
+
+		&:after {
+			content: '';
+			display: block;
+			position: absolute;
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border: 10px solid transparent;
+			border-top: 10px solid #fff;
+		}
+	}
+
+	&.active .popup {
+		display: block;
+		visibility: visible;
+	}
+	> .collection {
+		min-width: 100%;
+	}
+}

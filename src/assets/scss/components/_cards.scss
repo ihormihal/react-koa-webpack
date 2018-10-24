@@ -1,0 +1,100 @@
+.cards {
+	.card {
+		margin-bottom: $gap;
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+.card {
+	position: relative;
+	background-color: color(lighten);
+	border-radius: $boxRadius;
+	&.gold {
+		background-color: $colorPrimaryLight;
+	}
+	
+	.card-header {
+		dl {
+			padding: 4px 0;
+			font-size: $fs5;
+		}
+	}
+
+	.tabs-body {
+		dl {
+			font-size: $fs6;
+		}
+	}
+	
+	.card-details {
+		margin-top: $gap;
+		background-color: #fff;
+	}
+	.bottom-actions {
+		background-color: color(lighten);
+		border: 1px solid #fff;
+		border-width: 1px 0;
+		.btn {
+			border-radius: 0;
+			&.active {
+				background-color: $colorPrimaryLight; 
+			}
+		}
+	}
+}
+
+.card .tabs {
+	.tabs-head {
+		> a {
+			cursor: pointer;
+			display: inline-block;
+			padding: $gap/2 $gap;
+			font-weight: 300;
+			&.active {
+				background-color: #fff;
+			}
+		}
+	}
+	.tabs-body {
+		background-color: #fff;
+	}
+}
+
+.search-form {
+	display: none;
+	&.active { display: block; }
+
+	position: absolute;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	width: 100%;
+	transform-origin: 0 0;
+
+	background-color: #fff;
+	box-shadow: $mtShadow;
+
+	.close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		border-radius: 0;
+	}
+}
+.search-form-toggle {
+	position: absolute;
+	z-index: 1000;
+	right: 0;
+	top: 0;	
+	box-shadow: $mtShadow;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	font-size: 24px;
+	background-color: $colorPrimaryLight;
+	color: #fff;
+	&:hover {
+		background-color: $colorPrimary;
+	}
+}

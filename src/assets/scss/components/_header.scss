@@ -1,0 +1,72 @@
+$headerHeight: 50px;
+
+#app {
+	padding-top: $headerHeight;
+	> header {
+		background-color: $colorPrimaryDark;
+		position: fixed;
+		z-index: 9001;
+		left: 0;
+		right: 0;
+		top: 0;
+		.logo img {
+			height: $headerHeight;
+			width: auto;
+			vertical-align: bottom;
+		}
+		.dropdown  {
+			height: $headerHeight;
+			vertical-align: bottom;
+		}
+		.header-link, .ctx-select .toggle  {
+			line-height: $headerHeight;
+			text-decoration: none;
+			color: #fff;
+			transition-property: color background-color;
+			transition-duration: 0.3s;
+			transition-timing-function: ease;
+			padding: 0 $gap;
+			&:hover {
+				color: $colorPrimaryLight;
+				background-color: rgba(#fff, 0.1);
+			}
+		}
+		.ctx-select .toggle  {
+			display: inline-block;
+			height: $headerHeight;
+			background-image: none;
+			border: none;
+			padding-right: $gap*2;
+		}
+  }
+  
+	> menu {
+		top: $headerHeight;
+	}
+	> main {
+		height: calc(100vh - #{$headerHeight});
+		overflow: auto;
+  }
+  
+  transition: padding-right .4s;
+
+  .btn-switch-sidebar {
+    background-color: transparent;
+    font-size: 26px;
+    color: #fff;
+    .icon {
+      transition: all .4s;
+      display: block;
+    }
+  }
+
+  &.sidebar-collapsed {
+    padding-right: $navIconSize;
+    .btn-switch-sidebar {
+      .icon {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+}

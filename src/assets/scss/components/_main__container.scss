@@ -1,0 +1,15 @@
+.main__container {
+  padding-top: 50px;
+  padding-right: 320px;
+  transition: padding-right .4s;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  main{
+    overflow: auto;
+    width: 100%;
+  }
+  &.sidebar-collapsed{
+    padding-right: $navIconSize;
+  }
+}

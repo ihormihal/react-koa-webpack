@@ -1,0 +1,82 @@
+$cellSize: 32px;
+.rdt {
+    padding: 4px;
+    min-width: $cellSize*7;
+    table {
+        width: 100%;
+        th, td {
+            height: $cellSize;
+            border: none;
+            font-weight: 300;
+            vertical-align: middle;
+            text-align: center;
+            padding: 0;
+        }
+    }
+    .rdtPrev, .rdtNext {
+        width: $cellSize;
+        span { display: none; }
+        &:after {
+            display: inline-block;
+            font: normal normal normal 24px/1 "Material Design Icons";
+            font-size: inherit;
+            text-rendering: auto;
+            line-height: inherit;
+            -webkit-font-smoothing: antialiased;
+        }
+    }
+    .rdtPrev:after {
+        content:  "\F141";
+    }
+    .rdtNext:after {
+        content:  "\F142";
+    }
+    .rdtDays {
+        thead {
+            border-bottom: 1px solid color(light)
+        }
+        th, td {
+            width: $cellSize;
+        }
+        .dow {
+            color: $colorPrimary;
+
+        }
+        .rdtDay {
+            &.rdtToday {
+                color: $colorPrimary;
+            }
+            &.rdtActive {
+                background-color: $colorPrimary;
+                color: #fff;
+            }
+        }
+    }
+
+    .rdtDay, .rdtMonth, .rdtYear, .rdtSwitch, .rdtTimeToggle, .rdtBtn, .rdtPrev, .rdtNext {
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        border-radius: 2px;
+        &:hover {
+            background-color: $colorPrimaryLight;
+        }
+    }
+
+    .rdtTime {
+        th, td {
+            text-align: center;
+        }
+    }
+
+    .rdtCounters {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        .rdtCounter {
+            width: $cellSize;
+        }
+        .rdtCounterSeparator {
+            line-height: 70px;
+        }
+    }
+}

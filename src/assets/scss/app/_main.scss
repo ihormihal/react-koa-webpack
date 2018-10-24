@@ -1,0 +1,56 @@
+* {
+	&::-webkit-scrollbar {
+		width: 8px;
+		background-color: #F5F5F5;
+	}
+	&::-webkit-scrollbar-track {
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: $colorPrimary;
+	}
+}
+
+html {
+	font-size: 16px; //rem size
+}
+
+body {
+	height: 100%;
+	overflow: hidden;
+	font-size: 14px;
+}
+
+a {
+	color: $colorPrimary;
+}
+p {
+	color: color(grey);
+}
+ul {
+	text-align: left;
+}
+
+.no-scroll {
+	display: flex;
+	overflow: hidden;
+	.scroll {
+		flex: 1;
+		overflow: auto;
+	}
+}
+
+//equal height for widgets in row (additional class for col-**-**)
+.wc {
+	display: flex;
+	flex-direction: column;
+	.col-content {
+		flex-grow: 1;
+		position: relative;
+	}
+}
+
+.animate-slide-down {
+	@include materialDropdown(0.5s);
+	transform-origin: 0 0;
+}

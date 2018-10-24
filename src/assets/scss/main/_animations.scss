@@ -1,0 +1,165 @@
+@keyframes customFadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	} 
+}
+
+@keyframes customFadeInUp {
+	from {
+		opacity: 0;
+		transform: translate3d(0, 10px, 0); 
+	}
+	to {
+		opacity: 1;
+		transform: none; 
+	} 
+}
+
+
+@keyframes materialDropdown {
+	0% {
+		transform: scale(1, 0.7);
+		opacity: 0.2;
+	}
+
+	70% {
+		transform: scale(1, 1);
+		opacity: 1;
+	}
+}
+
+@keyframes materialDropdownInner {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes materialDropdownOut {
+	0% {
+		transform: scale(1, 1);
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0.2;
+	}
+
+	100% {
+		transform: scale(1, 0.5);
+		opacity: 0;
+	}
+}
+
+@keyframes materialDropdownOutInner {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes materialTooltip {
+	0% {
+		transform: scale(0.1, 0.1);
+		opacity: 0.2;
+	}
+
+	70% {
+		transform: scale(1, 1);
+		opacity: 1;
+	}
+}
+
+@keyframes materialTooltipOut {
+	0% {
+		transform: scale(1, 1);
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0.2;
+	}
+
+	100% {
+		transform: scale(0.5, 0.5);
+		opacity: 0;
+	}
+}
+
+
+@keyframes customFadeInDown {
+	from {
+		opacity: 0;
+		transform: translate3d(0, -10px, 0); 
+	}
+	to {
+		opacity: 1;
+		transform: none; 
+	} 
+}
+
+@keyframes slideDown {
+	from {
+		overflow: hidden;
+		max-height: 0;
+	}
+	to {
+		overflow: initial;
+		max-height: 600px;
+	} 
+}
+
+@keyframes ticker {
+	0% {
+		width: 0;
+		left: 0;
+	}
+	50% {
+		width: 50%;
+		left: 25%;
+	}
+	100% {
+		width: 0;
+		left: 100%;
+	}
+}
+
+@keyframes rotate {
+	0%    { transform: rotate(0deg); }
+	100%  { transform: rotate(360deg); }
+}
+
+@mixin materialDropdown ($duration) {
+	transition-property: opacity transform;
+	animation-name: materialDropdown;
+	animation-iteration-count: 1;
+	animation-duration: $duration;
+	animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	> * {
+		animation: materialDropdownInner $duration 1;
+	}
+	&.fadeOut {
+		animation-name: materialDropdownOut;
+		> * {
+			animation: materialDropdownOutInner $duration 1;
+		}
+	}
+}
+
+@mixin materialTooltip ($duration) {
+	transition-property: opacity transform;
+	animation-name: materialTooltip;
+	animation-iteration-count: 1;
+	animation-duration: $duration;
+	animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	&.fadeOut {
+		animation-name: materialTooltipOut;
+	}
+}
