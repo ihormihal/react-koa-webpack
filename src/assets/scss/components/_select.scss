@@ -194,6 +194,10 @@ $selectionBtnH : ($controlMD - 4px);
 	}
 }
 .popup-select {
+	.search {
+		margin: 0;
+		padding: $gap;
+	}
 	.collection li  {
 		padding-right: 28px;
 		.check {

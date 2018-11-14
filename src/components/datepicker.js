@@ -6,12 +6,13 @@ const DatePicker = ({ input, meta, placeholder }) => {
     let dateString = input.value ? input.value.toISOString() : placeholder
 
     return (
-        <Dropdown onClick={true} render={(close) => 
+        <Dropdown position="bottom" onClick={true} render={(close) => 
             <Datetime
                 onChange={(value) => {
                     input.onChange(value)
-                    close()
+                    // close()
                 }}
+                locale={'ru'}
                 defaultValue={input.value}
                 input={false}
             />

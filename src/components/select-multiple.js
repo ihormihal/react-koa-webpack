@@ -1,23 +1,22 @@
 // !!! SelectMultiple component - IN PROGRESS !!!
 import React from "react"
 import PropTypes from 'prop-types'
+import debounce from 'debounce'
 
 import Dropdown from './dropdown'
 
 class SelectMultipe extends Dropdown {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            fadeOut: false,
-            isOpen: false,
-            selected: []
-        }
+    state = {
+        fadeOut: false,
+        isOpen: false,
+        selected: []
     }
 
     static getDerivedStateFromProps(props, state) {
         return {
             ...state,
+            positionClass: Dropdown.getPositionClass(props.position),
             selected: props.value ? props.value : []
         }
     }
@@ -44,14 +43,18 @@ class SelectMultipe extends Dropdown {
         this.props.onChange(this.state.selected)
     }
 
+    search() {
+        // this.props.search(e.target.value)
+        console.log(debounce)
+        debounce(() => {
+            console.log('search')
+        }, 200)
+    }
+
     render() {
 
         const renderSelected = this.props.selected || ((value) => value)
         const renderOption = this.props.option || ((item) => item)
-        let positionClass = ''
-
-        if(this.props.position === 'right') positionClass = 'popup-right'
-        if(this.props.position === 'top') positionClass = 'popup-top'
 
         return (
             <div
@@ -73,7 +76,13 @@ class SelectMultipe extends Dropdown {
                     </div>
                     
                 </span>
-                <div className={`popup popup-select ${positionClass} ${this.state.fadeOut ? 'fadeOut': ''}`} onAnimationEnd={this.animationEnd}>
+                <div className={`popup popup-select ${ this.state.positionClass  } ${this.state.fadeOut ? 'fadeOut': ''}`} onAnimationEnd={this.animationEnd}>
+                    { this.props.search && <div className="search form-group">
+                        <div className="input-icon icon-left">
+                            <input onKeyUp={this.search.bind(this)} type="search" className="mtr full" placeholder="Search..." />
+                            <i className="icon grey mdi mdi-magnify" />
+                        </div>
+                    </div> }
                     <ul onClick={() => this.close()} className="collection links">
                         { 
                             this.props.values && this.props.values.map((item, i) => {

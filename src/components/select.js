@@ -5,12 +5,9 @@ import Dropdown from './dropdown'
 
 class Select extends Dropdown {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            fadeOut: false,
-            isOpen: false
-        }
+    state = {
+        fadeOut: false,
+        isOpen: false
     }
 
     onChange(value) {
@@ -22,28 +19,12 @@ class Select extends Dropdown {
 
         const renderSelected = this.props.selected || ((value) => value)
         const renderOption = this.props.option || ((item) => item)
-        let positionClass = ''
-
-        switch(this.props.position){
-            case 'right':
-                positionClass = 'popup-right'
-                break
-            case 'top':
-                positionClass = 'popup-top'
-                break
-            case 'bottom':
-                positionClass = ''
-                break
-            default:
-                positionClass = 'popup-over'
-        }
-
         return (
             <div
                 className={`dropdown ${this.state.isOpen ? 'active ' : ''} ${this.props.className || ''}`}
             >
                 <span className={`toggle select mtr`} onClick={() => this.open()}>{ renderSelected(this.props.value) } <i className="arrow mdi mdi-chevron-down"></i></span>
-                <div className={`popup popup-select ${positionClass} ${this.state.fadeOut ? 'fadeOut': ''}`} onAnimationEnd={this.animationEnd}>
+                <div className={`popup popup-select ${ this.state.positionClass } ${this.state.fadeOut ? 'fadeOut': ''}`} onAnimationEnd={this.animationEnd}>
                     <ul onClick={() => this.close()} className="collection links">
                         { 
                             this.props.values.map((item, i) => {

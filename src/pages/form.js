@@ -69,6 +69,10 @@ class FormPage extends React.Component {
 
     }
 
+    search(val) {
+        console.log('search', val)
+    }
+
     render() {
         const { t } = this.props
 
@@ -136,6 +140,7 @@ class FormPage extends React.Component {
                                             selected={(val) => <span>{val.city}, {val.country}</span>}
                                             option={(val) => <span>{val.city}, {val.country}</span>}
                                             onChange={(value) => input.onChange(value) }
+                                            search={(val) => this.search(val)}
                                         />
                                     ) }
                                 />

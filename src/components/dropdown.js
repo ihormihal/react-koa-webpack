@@ -13,27 +13,49 @@ class Popup extends React.Component {
 
 class Dropdown extends React.Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            fadeOut: false,
-            isOpen: false,
-            popupStyle: {}
+    state = {
+        fadeOut: false,
+        isOpen: false,
+        popupStyle: {}
+    }
+
+    static getPositionClass(position) {
+        let positionClass = ''
+        switch(position){
+            case 'right':
+                positionClass = 'popup-right'
+                break
+            case 'top':
+                positionClass = 'popup-top'
+                break
+            case 'bottom':
+                positionClass = ''
+                break
+            default:
+                positionClass = 'popup-over'
+        }
+        return positionClass
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            ...state,
+            positionClass: Dropdown.getPositionClass(props.position)
         }
     }
 
     clickOutside = (e) => {
-        let isOutsideClick = !e.target.closest('.dropdown, .rdtTimeToggle, .rdtSwitch, .rdtMonth, .rdtYear')
+        let isOutsideClick = !e.target.closest('.dropdown')
         if(isOutsideClick) this.close()
     }
 
     componentDidMount() {
-        document.addEventListener('click', this.clickOutside)
+        document.addEventListener('click', this.clickOutside, true)
         this.setPopupStyle()
     }
 
     componentWillUnmount() {
-        document.removeEventListener('click', this.clickOutside)
+        document.removeEventListener('click', this.clickOutside, true)
     }
 
     animationEnd = (e) => {
@@ -75,17 +97,6 @@ class Dropdown extends React.Component {
     }
 
     render() {
-        let prefix
-        switch(this.props.position){
-            case 'bottom':
-                prefix = 'popup-bottom'
-                break;
-            case 'top':
-                prefix = 'popup-top'
-                break;
-            default:
-            prefix = ''
-        }
         return (
             <span 
                 className={'dropdown' + (this.state.isOpen ? ' active ': '')} 
@@ -99,7 +110,7 @@ class Dropdown extends React.Component {
                 >{this.props.children}</span>
                 <span 
                     style={this.state.popupStyle} 
-                    className={`popup ${ prefix } ${this.state.fadeOut ? 'fadeOut': ''} ${this.props.tooltip ? 'tooltip': ''}`} 
+                    className={`popup ${ this.state.positionClass } ${this.state.fadeOut ? 'fadeOut': ''} ${this.props.tooltip ? 'tooltip': ''}`} 
                     onAnimationEnd={this.animationEnd}
                 >{this.props.render && this.props.render(() => this.close())}</span>
             </span>

@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "debounce": "^1.2.0",
     "final-form": "^4.10.0",
     "i18next": "^11.9.1",
     "koa": "^2.5.3",

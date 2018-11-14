@@ -14,9 +14,9 @@
 	@for $i from 1 through $columns {
 		//ширина колонки
 		.col-#{$prefix}-#{$i} {
-			width : ($i / $columns)*100%;
-			padding-top: 0;
-			padding-bottom: 0;
+			flex-basis: ($i / $columns)*100%;
+			// padding-top: 0;
+			// padding-bottom: 0;
 		}
 		//смещение колонок
 		.col-#{$prefix}-offset-#{$i} {
@@ -27,9 +27,9 @@
 	@for $i from 1 through 10 {
 		//ширина колонки
 		.col-#{$prefix}-ten-#{$i} {
-			width : ($i / 10)*100%;
-			padding-top: 0;
-			padding-bottom: 0;
+			flex-basis: ($i / 10)*100%;
+			// padding-top: 0;
+			// padding-bottom: 0;
 		}
 		//смещение колонок
 		.col-#{$prefix}-ten-offset-#{$i} {
@@ -114,8 +114,7 @@
 	min-height: 1px;
 	padding: 0 $gap;
 	box-sizing: border-box;
-	width: 100%;
-	float: left;
+	flex-basis: 100%;
 }
 .row {
 	clear: both;
@@ -129,8 +128,6 @@
 	&.reverse {
 		flex-direction: row-reverse;
 	}
-
-	&:after {content: ''; display: block; clear: both;}
 	//плитка - если колонки не помещаются по ширине, нужен вертикальный отступ
 	&.wide {
 		margin-left: -$gap*2;

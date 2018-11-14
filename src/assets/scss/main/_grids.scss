@@ -1,0 +1,29 @@
+.row {
+    display: grid;
+    grid-template-columns: repeat(#{$columns}, 1fr);
+    grid-gap: $gap*2;
+    &.thin {
+        grid-gap: $gap;
+    }
+    &.condensed {
+        grid-gap: 0;
+    }
+
+    .col {
+        grid-column-start: auto;
+        grid-column-end: auto;
+    }
+
+    .col-end {
+        justify-self: end;
+    }
+
+    @for $i from 1 through $columns {
+		.col-start-#{$i} {
+            grid-column-start: $i;
+		}
+		.col-end-#{$i} {
+            grid-column-end: $i+1;
+		}
+	}
+}
