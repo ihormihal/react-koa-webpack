@@ -7,16 +7,60 @@ import Loader from '@/components/loader'
 import { getCountries } from '@/actions/countries'
 
 
-class Administration extends React.Component {
-    constructor(props) {
-        super(props)
+const getSortClass = (sortBy, sortDir, prop) => {
+    let sortClass = 'mdi-sort'
+    switch(sortDir){
+        case 'ASC':
+            sortClass = 'mdi-sort-ascending'
+            break
+        case 'DESC':
+            sortClass = 'mdi-sort-descending'
+            break
+        default:
+            break
+    }
+    return sortClass
+}
 
-        this.state = {
-            page: 0,
-            onPage: 10,
-
-            selectSelected: []
+class SortIcon extends React.Component {
+    
+    getSortClass (sortDir) {
+        let sortClass = 'mdi-sort'
+        if(this.props.sortBy !== this.props.prop) return sortClass
+        switch(sortDir){
+            case 'ASC':
+                sortClass = 'mdi-sort-ascending'
+                break
+            case 'DESC':
+                sortClass = 'mdi-sort-descending'
+                break
+            default:
+                break
         }
+        return sortClass
+    }
+
+    handleClick() {
+        let sortDir = this.props.sortDir === 'ASC' ? 'DESC' : 'ASC'
+        this.props.onChange(this.props.prop, sortDir)
+    }
+
+    render(){
+        let sortClass = this.getSortClass(this.props.sortDir)
+        return (
+            <i className={`mdi ${sortClass}`} onClick={() => this.handleClick()}></i>
+        )
+    }
+}
+
+class Administration extends React.Component {
+
+    state = {
+        page: 0,
+        onPage: 10,
+        sortBy: 'name',
+        sortDir: null,
+        selectSelected: []
     }
 
     componentDidMount() {
@@ -26,16 +70,22 @@ class Administration extends React.Component {
     search() {
         this.props.actions.getCountries({
             page: this.state.page,
-            onPage: this.state.onPage
+            onPage: this.state.onPage,
+            sortBy: this.state.sortBy,
+            sortDir: this.state.sortDir
         })
     }
-
+    
     setPage(page) {
         this.setState({ page, selectSelected: [] }, this.search)
     }
 
     setPageSize(size) {
         this.setState({ page: 0, onPage: size, selectSelected: [] }, this.search)
+    }
+
+    sort (sortBy, sortDir) {
+        this.setState({ sortBy, sortDir }, this.search ) 
     }
 
     onSelect(values) {
@@ -57,8 +107,14 @@ class Administration extends React.Component {
                         <table className="datatable mb1">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
+                                    <th>
+                                        <SortIcon sortDir={this.state.sortDir} sortBy={this.state.sortBy} prop="id" onChange={this.sort.bind(this)} />
+                                        ID
+                                    </th>
+                                    <th>
+                                        <SortIcon sortDir={this.state.sortDir} sortBy={this.state.sortBy} prop="name" onChange={this.sort.bind(this)} />
+                                        Name
+                                    </th>
                                     <th>Code</th>
                                     <th>ISO</th>
                                     <th>Continent</th>
