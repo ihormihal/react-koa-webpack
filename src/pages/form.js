@@ -2,55 +2,46 @@ import React from 'react'
 import connect from '@/connect'
 import { Form, Field } from 'react-final-form'
 
-import Modal from '@/components/modal/modal'
 import Dropdown from '@/components/dropdown'
 import DatePicker from '@/components/datepicker'
 import Select from '@/components/select'
 import SelectMultiple from '@/components/select-multiple'
 
-import { show as showModal } from "@/actions/modal"
-import { show as showAlert } from "@/actions/alert"
-import { show as showDialog } from "@/actions/dialog"
-
 class FormPage extends React.Component {
-    constructor(props) {
-        super(props)
 
-        this.state = {}
+    state = {}
 
+    formStore = {
+        cities: [
+            {
+                city: 'Kyiv',
+                country: 'Ukraine'
+            },
+            {
+                city: 'Lviv',
+                country: 'Ukraine'
+            },
+            {
+                city: 'Copenhagen',
+                country: 'Denmark'
+            },
+            {
+                city: 'Paris',
+                country: 'France'
+            },
+            {
+                city: 'Amsterdam',
+                country: 'Netherlands'
+            }
+        ]
+    }
 
-        this.formStore = {
-            cities: [
-                {
-                    city: 'Kyiv',
-                    country: 'Ukraine'
-                },
-                {
-                    city: 'Lviv',
-                    country: 'Ukraine'
-                },
-                {
-                    city: 'Copenhagen',
-                    country: 'Denmark'
-                },
-                {
-                    city: 'Paris',
-                    country: 'France'
-                },
-                {
-                    city: 'Amsterdam',
-                    country: 'Netherlands'
-                }
-            ]
-        }
-
-        this.formValues = {
-            date: new Date(),
-            sex: 'male',
-            city: this.formStore.cities[1],
-            cities: [ this.formStore.cities[0], this.formStore.cities[1] ],
-            cities2: [ this.formStore.cities[0], this.formStore.cities[1] ]
-        }
+    formValues = {
+        date: new Date(),
+        sex: 'male',
+        city: this.formStore.cities[1],
+        cities: [ this.formStore.cities[0], this.formStore.cities[1] ],
+        cities2: [ this.formStore.cities[0], this.formStore.cities[1] ]
     }
 
     validateForm(values) {
@@ -252,63 +243,6 @@ class FormPage extends React.Component {
                         render={renderForm} 
                         initialValues={this.formValues}
                     />
-
-                </div>
-
-                <div className="box">
-                    <h3>Modals</h3>
-                    <div className="btn-group">
-                        <button 
-                            className="btn btn-primary" 
-                            onClick={() => this.setState({customModal: true})}
-                        >Custom modal</button>
-
-                        { this.state.customModal && <Modal clickOutside={() => this.setState({customModal: false})}>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco</p>
-                            <button className="btn" onClick={() => this.setState({customModal: false})}>Close</button>
-                        </Modal> }
-
-                        <button 
-                            className="btn" 
-                            onClick={() => {
-                                this.props.actions.showDialog({
-                                    header: 'Are you sure?',
-                                    message: '',
-                                    options: {
-                                        ok: {
-                                            text: 'Так',
-                                            actionType: 'DIALOG_ACTION_OK'
-                                        },
-                                        cancel: {
-                                            text: 'Hi',
-                                            actionType: 'DIALOG_ACTION_CANCEL'
-                                        }
-                                    }
-                                })
-                            }}
-                        >Dialog</button>
-
-                        <button 
-                            className="btn btn-success" 
-                            onClick={() => {
-                                this.props.actions.showAlert({ type: 'SUCCESS', header: 'Success!', message: 'Some message' })
-                            }}
-                        >Success message</button>
-
-                        <button 
-                            className="btn btn-danger"
-                            onClick={() => {
-                                this.props.actions.showAlert({ type: 'ERROR', header: 'Something go wrong!', message: 'Some message' })
-                            }}
-                        >Error message</button>
-
-                        <button 
-                            className="btn btn-primary" 
-                            onClick={() => {
-                                this.props.actions.showAlert({ header: 'Header text', message: 'Some message' })
-                            }}
-                        >Info message</button>
-                    </div>
                 </div>
             </main>
         )
@@ -318,6 +252,5 @@ class FormPage extends React.Component {
 
 export default connect(
     FormPage, 
-    (store) => ({}),
-    { showModal, showAlert, showDialog }
+    (store) => ({})
 )
