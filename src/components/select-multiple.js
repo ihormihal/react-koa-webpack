@@ -5,29 +5,38 @@ import debounce from 'debounce'
 
 import Dropdown from './dropdown'
 
+
+const searchFunc = (array, search, prop) => {
+    if(!search) return array
+    return array.filter((val) => val.hasOwnProperty(prop) && val[prop].toLowerCase().indexOf(search.toLowerCase()) > -1)
+}
+
 class SelectMultipe extends Dropdown {
 
     state = {
         fadeOut: false,
         isOpen: false,
-        selected: []
+        searchValue: '',
+        selected: [],
+        values: []
     }
 
     static getDerivedStateFromProps(props, state) {
         return {
             ...state,
             positionClass: Dropdown.getPositionClass(props.position),
-            selected: props.value ? props.value : []
+            selected: props.value ? props.value : [],
+            values: searchFunc(props.values, state.searchValue, props.search)
         }
     }
 
-    clickOption(isSelected, index, e) {
-        if(isSelected){
+    clickOption(item, e) {
+        let index = this.state.selected.indexOf(item)
+        if(index > -1){
             this.deleteSelected(index, e)
         }else{
-            let value = this.props.values[index]
             let selected = this.state.selected
-            selected.push(value)
+            selected.push(item)
             this.setState({ selected })
             this.props.onChange(this.state.selected)
         }
@@ -43,12 +52,9 @@ class SelectMultipe extends Dropdown {
         this.props.onChange(this.state.selected)
     }
 
-    search() {
-        // this.props.search(e.target.value)
-        console.log(debounce)
-        debounce(() => {
-            console.log('search')
-        }, 200)
+
+    search(e) {
+        this.setState({ searchValue: e.target.value })
     }
 
     render() {
@@ -79,16 +85,16 @@ class SelectMultipe extends Dropdown {
                 <div className={`popup popup-select ${ this.state.positionClass  } ${this.state.fadeOut ? 'fadeOut': ''}`} onAnimationEnd={this.animationEnd}>
                     { this.props.search && <div className="search form-group">
                         <div className="input-icon icon-left">
-                            <input onKeyUp={this.search.bind(this)} type="search" className="mtr full" placeholder="Search..." />
+                            <input onChange={this.search.bind(this)} value={this.state.searchValue} type="search" className="mtr full" placeholder="Search..." />
                             <i className="icon grey mdi mdi-magnify" />
                         </div>
                     </div> }
                     <ul onClick={() => this.close()} className="collection links">
                         { 
-                            this.props.values && this.props.values.map((item, i) => {
+                            this.props.values && this.state.values.map((item, i) => {
                                 const isSelected = this.state.selected.indexOf(item) > -1
                                 return (
-                                    <li className={isSelected ? 'active' : ''} key={i} onClick={(event) => this.clickOption(isSelected, i, event)}>
+                                    <li className={isSelected ? 'active' : ''} key={i} onClick={(event) => this.clickOption(item, event)}>
                                         { renderOption(item) }
                                         { isSelected && <i className="check mdi mdi-check"></i> }
                                     </li>
@@ -106,7 +112,8 @@ SelectMultipe.propTypes = {
     value: PropTypes.array,
     values: PropTypes.array,
     selected: PropTypes.func,
-    option: PropTypes.func
+    option: PropTypes.func,
+    search: PropTypes.string
 }
 
 export default SelectMultipe

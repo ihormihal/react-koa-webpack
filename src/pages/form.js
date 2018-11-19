@@ -48,7 +48,8 @@ class FormPage extends React.Component {
             date: new Date(),
             sex: 'male',
             city: this.formStore.cities[1],
-            cities: [ this.formStore.cities[0], this.formStore.cities[1] ]
+            cities: [ this.formStore.cities[0], this.formStore.cities[1] ],
+            cities2: [ this.formStore.cities[0], this.formStore.cities[1] ]
         }
     }
 
@@ -140,7 +141,24 @@ class FormPage extends React.Component {
                                             selected={(val) => <span>{val.city}, {val.country}</span>}
                                             option={(val) => <span>{val.city}, {val.country}</span>}
                                             onChange={(value) => input.onChange(value) }
-                                            search={(val) => this.search(val)}
+                                        />
+                                    ) }
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label>Select cities</label>
+                                <Field
+                                    name="cities2"
+                                    values={this.formStore.cities}
+                                    component={ ({ input, values }) => (
+                                        <SelectMultiple
+                                            value={input.value}
+                                            values={values}
+                                            selected={(val) => <span>{val.city}, {val.country}</span>}
+                                            option={(val) => <span>{val.city}, {val.country}</span>}
+                                            onChange={(value) => input.onChange(value) }
+                                            search="city"
                                         />
                                     ) }
                                 />
