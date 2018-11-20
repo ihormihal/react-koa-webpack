@@ -44,6 +44,11 @@ class Alert extends React.Component {
                     <div className="box">
                         { this.props.payload.message }
                     </div>
+                    <div className="box">
+                        <div className="btn-group">
+                            <button tabIndex="1" className="btn" onClick={() => this.hide()}>Ok</button>
+                        </div>
+                    </div>
                 </div>
             </div> : null
         )

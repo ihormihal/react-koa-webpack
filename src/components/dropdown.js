@@ -40,7 +40,7 @@ class Dropdown extends React.Component {
     static getDerivedStateFromProps(props, state) {
         return {
             ...state,
-            positionClass: Dropdown.getPositionClass(props.position)
+            positionClass: props.tooltip ? '' : Dropdown.getPositionClass(props.position)
         }
     }
 

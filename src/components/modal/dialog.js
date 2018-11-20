@@ -51,7 +51,7 @@ class Dialog extends React.Component {
                     <div className="box">
                         <div className="btn-group">
                             <button tabIndex="1" className="btn btn-primary" onClick={() => this.ok()}>{payload.options.ok.text}</button>
-                            <button tabIndex="2" className="btn btn-tr btn-danger" onClick={() => this.cancel()}>{payload.options.cancel.text}</button>
+                            <button tabIndex="2" className="btn" onClick={() => this.cancel()}>{payload.options.cancel.text}</button>
                         </div>
                     </div>
                 </div>

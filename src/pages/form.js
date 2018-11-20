@@ -231,7 +231,14 @@ class FormPage extends React.Component {
 
                 <div className="box">
                     <h3>Tooltip { t('KEYY') }</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do <Dropdown className="underline" tooltip={true} render={() => <span>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, architecto beatae vitae dicta sunt explicabo.</span>}>eiusmod tempor</Dropdown> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do &nbsp;
+                        <Dropdown 
+                            className="underline" 
+                            tooltip={true} 
+                            render={() => <span>Sed ut perspiciatis unde omnis iste natus <b>error</b> sit voluptatem accusantium doloremque laudantium, architecto beatae vitae dicta sunt explicabo.</span>}
+                        >eiusmod tempor</Dropdown> 
+                        &nbsp; tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                    </p>
                 </div>
 
                 <div className="box">

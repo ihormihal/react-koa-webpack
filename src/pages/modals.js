@@ -32,7 +32,7 @@ class Modals extends React.Component {
                             onClick={() => {
                                 this.props.actions.showDialog({
                                     header: 'Are you sure?',
-                                    message: '',
+                                    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit?',
                                     options: {
                                         ok: {
                                             text: 'Так',
