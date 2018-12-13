@@ -34,12 +34,12 @@ class Tabs extends React.Component {
                 <h1>Tabs</h1>
                 <div className="tabs">
                     <ul className="nav nav-inline btn-group">
-                        { this.state.tabs.map((tab, index) => <li>
+                        { this.state.tabs.map((tab, index) => <li key={index}>
                             <a className={`btn ${index === this.state.tabIndex ? 'active' : ''}`} onClick={() => this.setState({ tabIndex: index })}>{tab.label}</a>
                         </li>)}
                     </ul>
                     <div>
-                        { this.state.tabs.map((tab, index) => <div className={`box ${index === this.state.tabIndex ? '' : 'hidden'}`}>
+                        { this.state.tabs.map((tab, index) => <div key={index} className={`box ${index === this.state.tabIndex ? '' : 'hidden'}`}>
                             <p>{tab.content}</p>
                         </div>)}
                     </div>
