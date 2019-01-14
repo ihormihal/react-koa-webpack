@@ -93,7 +93,7 @@ class Administration extends React.Component {
     }
 
     render() {
-        const isLoading = this.props.countries.payload && this.props.countries.payload.isFetching
+        const isLoading = this.props.countries && this.props.countries.isFetching
         // const isLoading = true //for test
         const countries = this.props.countries.payload && this.props.countries.payload.countries
         const pageCount = this.props.countries.payload && this.props.countries.payload.pageCount || 1
