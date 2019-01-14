@@ -39,14 +39,12 @@ $inlineInputs: 'textarea, select, input[type=text], input[type=search], input[ty
 			position: relative;
 			z-index: -1;
 			top: 32px;
-			font-weight: 400;
 			color: $placeholderColor;
 			transition: top 0.3s ease;
 		}
 		&.focus {
 			label {
 				color: inherit;
-				font-weight: 600;
 				top: 0;
 			}
 		}

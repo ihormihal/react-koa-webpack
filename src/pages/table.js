@@ -53,39 +53,67 @@ class SortIcon extends React.Component {
     }
 }
 
+// class SearchInput extends React.Component {
+
+//     handleChange() {
+//         this.props.onChange(this.props.prop, sortDir)
+//     }
+
+//     render(){
+//         let sortClass = this.getSortClass(this.props.sortDir)
+//         return (
+//             <div className="form-group">
+//                 <label>Capital</label>
+//                 <input className="full mtr" type="text" value={this.props.value} onChange={(e) => this.handleSearch('capital', e.target.value)}></input>
+//             </div>
+//         )
+//     }
+// }
+
 class Administration extends React.Component {
 
     state = {
         page: 0,
         onPage: 10,
+        search: null,
         sortBy: 'name',
         sortDir: null,
         selectSelected: []
     }
 
     componentDidMount() {
-        this.search()
+        this.load()
     }
 
-    search() {
+    load() {
         this.props.actions.getCountries({
             page: this.state.page,
             onPage: this.state.onPage,
+            search: this.state.search,
             sortBy: this.state.sortBy,
             sortDir: this.state.sortDir
         })
     }
     
     setPage(page) {
-        this.setState({ page, selectSelected: [] }, this.search)
+        this.setState({ page, selectSelected: [] }, this.load)
     }
 
     setPageSize(size) {
-        this.setState({ page: 0, onPage: size, selectSelected: [] }, this.search)
+        this.setState({ page: 0, onPage: size, selectSelected: [] }, this.load)
     }
 
     sort (sortBy, sortDir) {
-        this.setState({ sortBy, sortDir }, this.search ) 
+        this.setState({ sortBy, sortDir }, this.load ) 
+    }
+
+    handleSearch (key, value) {
+        this.setState({ 
+            search: {
+                ...this.state.search,
+                [key]: value
+            } 
+        }, this.load ) 
     }
 
     onSelect(values) {
@@ -118,7 +146,16 @@ class Administration extends React.Component {
                                     <th>Code</th>
                                     <th>ISO</th>
                                     <th>Continent</th>
-                                    <th>Capital</th>
+                                    <th>
+                                        <SortIcon sortDir={this.state.sortDir} sortBy={this.state.sortBy} prop="capital" onChange={this.sort.bind(this)} />
+                                        <div className="form-group">
+                                            <label>Capital</label>
+                                            <div className="input-icon">
+                                                <input className="full mtr" type="text" defaultValue={this.state.search && this.state.search.capital || ''} onBlur={(e) => this.handleSearch('capital', e.target.value)}></input>
+                                                <i className="icon mdi mdi-magnify"></i>
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th>Phone</th>
                                     <th>Currency</th>
                                     <th>Date</th>

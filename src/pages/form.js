@@ -2,6 +2,7 @@ import React from 'react'
 import connect from '@/connect'
 import { Form, Field } from 'react-final-form'
 
+import TextInput from '@/components/input'
 import Dropdown from '@/components/dropdown'
 import DatePicker from '@/components/datepicker'
 import Select from '@/components/select'
@@ -239,6 +240,13 @@ class FormPage extends React.Component {
                         >eiusmod tempor</Dropdown> 
                         &nbsp; tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                     </p>
+
+                    <h3>Custom input</h3>
+                    <TextInput
+                        label='Text label'
+                        icon='magnify'
+                        defaultValue={'werw'}
+                    />
                 </div>
 
                 <div className="box">
