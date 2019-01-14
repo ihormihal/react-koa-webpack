@@ -33,4 +33,4 @@ app.use(staticServer({rootDir: 'dist', rootPath: '/' }));
 
 
 const server = http.createServer(app.callback());
-server.listen(3000);
+server.listen(3003);

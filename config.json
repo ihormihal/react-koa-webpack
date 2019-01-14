@@ -1,6 +1,6 @@
 {
     "development": {
-        "API_URL": "http://localhost:3000/api/"
+        "API_URL": "http://localhost:3003/api/"
     },
     "production": {
         "API_URL": "http://localhost:3000/api/"
