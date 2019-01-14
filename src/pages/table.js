@@ -1,5 +1,6 @@
 import React from 'react'
 import connect from '@/connect'
+import TextInput from '@/components/textInput'
 import Pagination from '@/components/pagination'
 import Select from '@/components/select'
 import Loader from '@/components/loader'
@@ -108,12 +109,16 @@ class Administration extends React.Component {
     }
 
     handleSearch (key, value) {
-        this.setState({ 
-            search: {
-                ...this.state.search,
-                [key]: value
-            } 
-        }, this.load ) 
+        let search = this.state.search || {}
+
+        if(search[key] !== value){
+            this.setState({ 
+                search: {
+                    ...search,
+                    [key]: value
+                } 
+            }, this.load )
+        }
     }
 
     onSelect(values) {
@@ -121,85 +126,83 @@ class Administration extends React.Component {
     }
 
     render() {
-        const isLoading = this.props.countries && this.props.countries.isFetching
+        const isFetching = this.props.countries && this.props.countries.isFetching
         // const isLoading = true //for test
         const countries = this.props.countries.payload && this.props.countries.payload.countries
         const pageCount = this.props.countries.payload && this.props.countries.payload.pageCount || 1
         return (
             <main>
-                <div className="box">
-                    <Loader loading={isLoading}>
+                <div className="box relative">
+                    
+                    <div className="mb2" />
 
-                        <div className="mb2" />
-
-                        <table className="datatable mb1">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <SortIcon sortDir={this.state.sortDir} sortBy={this.state.sortBy} prop="id" onChange={this.sort.bind(this)} />
-                                        ID
-                                    </th>
-                                    <th>
-                                        <SortIcon sortDir={this.state.sortDir} sortBy={this.state.sortBy} prop="name" onChange={this.sort.bind(this)} />
-                                        Name
-                                    </th>
-                                    <th>Code</th>
-                                    <th>ISO</th>
-                                    <th>Continent</th>
-                                    <th>
-                                        <SortIcon sortDir={this.state.sortDir} sortBy={this.state.sortBy} prop="capital" onChange={this.sort.bind(this)} />
-                                        <div className="form-group">
-                                            <label>Capital</label>
-                                            <div className="input-icon">
-                                                <input className="full mtr" type="text" defaultValue={this.state.search && this.state.search.capital || ''} onBlur={(e) => this.handleSearch('capital', e.target.value)}></input>
-                                                <i className="icon mdi mdi-magnify"></i>
-                                            </div>
-                                        </div>
-                                    </th>
-                                    <th>Phone</th>
-                                    <th>Currency</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            { countries && <tbody>
-                                {
-                                    countries.map((country) => {
-                                        return (
-                                            <tr key={country.id}>
-                                                <td>{country.id}</td>
-                                                <td>{country.name}</td>
-                                                <td>{country.code}</td>
-                                                <td>{country.iso_code}</td>
-                                                <td>{country.continent}</td>
-                                                <td>{country.capital}</td>
-                                                <td>{country.phone}</td>
-                                                <td>{country.currency}</td>
-                                                <td>{country.date}</td>
-                                            </tr>
-                                        )
-                                    })
-                                }
-                            </tbody> }
-                        </table>
-                        <div className="row">
-                            <div className="col-sm-8">
-                                <Pagination
-                                    pages={pageCount}
-                                    current={this.state.page}
-                                    setPage={(index) => this.setPage(index)}
-                                />
-                            </div>
-                            <div className="col-sm-4 text-right">
-                                <Select
-                                    position="top"
-                                    value={this.state.onPage} 
-                                    values={[10, 50, 100]}
-                                    onChange={(value) => this.setPageSize(value) }
-                                />
-                            </div>
+                    <table className="datatable mb1">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <SortIcon sortDir={this.state.sortDir} sortBy={this.state.sortBy} prop="id" onChange={this.sort.bind(this)} />
+                                    ID
+                                </th>
+                                <th>
+                                    <SortIcon sortDir={this.state.sortDir} sortBy={this.state.sortBy} prop="name" onChange={this.sort.bind(this)} />
+                                    Name
+                                </th>
+                                <th>Code</th>
+                                <th>ISO</th>
+                                <th>Continent</th>
+                                <th>
+                                    <SortIcon sortDir={this.state.sortDir} sortBy={this.state.sortBy} prop="capital" onChange={this.sort.bind(this)} />
+                                    <TextInput 
+                                        label="Capital"
+                                        icon="magnify"
+                                        defaultValue={this.state.search && this.state.search.capital || ''}
+                                        onBlur={(value) => this.handleSearch('capital', value)}
+                                    />
+                                </th>
+                                <th>Phone</th>
+                                <th>Currency</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        { countries && <tbody>
+                            {
+                                countries.map((country) => {
+                                    return (
+                                        <tr key={country.id}>
+                                            <td>{country.id}</td>
+                                            <td>{country.name}</td>
+                                            <td>{country.code}</td>
+                                            <td>{country.iso_code}</td>
+                                            <td>{country.continent}</td>
+                                            <td>{country.capital}</td>
+                                            <td>{country.phone}</td>
+                                            <td>{country.currency}</td>
+                                            <td>{country.date}</td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody> }
+                    </table>
+                    <div className="row">
+                        <div className="col-sm-8">
+                            <Pagination
+                                pages={pageCount}
+                                current={this.state.page}
+                                setPage={(index) => this.setPage(index)}
+                            />
                         </div>
-
-                    </Loader>
+                        <div className="col-sm-4 text-right">
+                            <Select
+                                position="top"
+                                value={this.state.onPage} 
+                                values={[10, 50, 100]}
+                                onChange={(value) => this.setPageSize(value) }
+                            />
+                        </div>
+                    </div>
+                    
+                    <Loader loading={isFetching} />
                 </div>
             </main>
         )

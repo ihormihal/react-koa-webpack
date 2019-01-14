@@ -2,7 +2,7 @@ import React from 'react'
 import connect from '@/connect'
 import { Form, Field } from 'react-final-form'
 
-import TextInput from '@/components/input'
+import TextInput from '@/components/textInput'
 import Dropdown from '@/components/dropdown'
 import DatePicker from '@/components/datepicker'
 import Select from '@/components/select'
@@ -245,7 +245,8 @@ class FormPage extends React.Component {
                     <TextInput
                         label='Text label'
                         icon='magnify'
-                        defaultValue={'werw'}
+                        defaultValue={''}
+                        onChange={(value) => console.log(value)}
                     />
                 </div>
 

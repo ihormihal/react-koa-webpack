@@ -16,7 +16,8 @@
 // }
 
 .loader-wrapper {
-	position: relative;
+	@extend .absolute, .fill;
+	
 	&:before {
 		content: '';
 		display: block;

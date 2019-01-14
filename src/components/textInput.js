@@ -18,17 +18,19 @@ class TextInput extends React.Component {
 
     handleChange = (e) => {
         this.setState({ 
-            isChanged: true,
             value: e.target.value 
-        })
+        }, () => {
+            this.props.onChange && this.props.onChange(this.state.value)
+        }) 
     }
 
     handleFocus = (e) => {
-        this.setState({isFocus: true})
+        this.setState({ isChanged: true, isFocus: true })
     }
 
     handleBlur = (e) => {
         if(!this.state.value) this.setState({isFocus: false})
+        this.props.onBlur && this.props.onBlur(this.state.value)
     }
 
     render () {
@@ -51,7 +53,11 @@ class TextInput extends React.Component {
 }
 
 TextInput.propTypes = {
-
+    label: PropTypes.string,
+    icon: PropTypes.string,
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    onChange: PropTypes.func,
+    onBlur: PropTypes.func
 }
 
 export default TextInput

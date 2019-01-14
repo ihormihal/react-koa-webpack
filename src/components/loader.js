@@ -2,22 +2,26 @@ import React from "react"
 
 class Loader extends React.Component {
 
-    constructor(props) {
-        super(props)
+    delay = 200
+    timer = null
+    state = {
+        loading: false
     }
 
+    componentDidUpdate() {
+        if(this.timer) clearTimeout(this.timer)
+        if(this.props.loading === this.state.loading) return;
+        this.timer = setTimeout(() => {
+            this.setState({
+                loading: this.props.loading
+            })
+        }, this.delay)
+    }
 
     render() {
-        if(this.props.loading){
-            return (
-                <div className="loader-wrapper">
-                    {this.props.children}
-                    { this.props.loading && <div className="loader lds-ring-loader"><div></div><div></div><div></div><div></div></div> }
-                </div>
-            )
-        }else{
-            return this.props.children
-        }
+        return this.state.loading && <div className="loader-wrapper">
+            <div className="loader lds-ring-loader"><div></div><div></div><div></div><div></div></div>
+        </div>
     }
 }
 
