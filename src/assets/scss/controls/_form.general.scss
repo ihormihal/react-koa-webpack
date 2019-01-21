@@ -35,17 +35,19 @@ $inlineInputs: 'textarea, select, input[type=text], input[type=search], input[ty
 		}
 	}
 	&.floating-label {
+		position: relative;
+		padding-top: 36px;
 		label {
-			position: relative;
+			position: absolute;
 			z-index: -1;
-			top: 32px;
+			bottom: 0;
 			color: $placeholderColor;
-			transition: top 0.3s ease;
+			transition: bottom 0.3s ease;
 		}
 		&.focus {
 			label {
 				color: inherit;
-				top: 0;
+				bottom: 36px;
 			}
 		}
 	}

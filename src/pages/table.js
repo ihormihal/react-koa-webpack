@@ -49,7 +49,7 @@ class SortIcon extends React.Component {
     render(){
         let sortClass = this.getSortClass(this.props.sortDir)
         return (
-            <i className={`mdi ${sortClass}`} onClick={() => this.handleClick()}></i>
+            <i className={`sort-icon mdi ${sortClass}`} onClick={() => this.handleClick()}></i>
         )
     }
 }
@@ -134,23 +134,21 @@ class Administration extends React.Component {
             <main>
                 <div className="box relative">
                     
-                    <div className="mb2" />
-
                     <table className="datatable mb1">
                         <thead>
                             <tr>
-                                <th>
+                                <th className="sort">
                                     <SortIcon sortDir={this.state.sortDir} sortBy={this.state.sortBy} prop="id" onChange={this.sort.bind(this)} />
                                     ID
                                 </th>
-                                <th>
+                                <th className="sort">
                                     <SortIcon sortDir={this.state.sortDir} sortBy={this.state.sortBy} prop="name" onChange={this.sort.bind(this)} />
                                     Name
                                 </th>
                                 <th>Code</th>
                                 <th>ISO</th>
                                 <th>Continent</th>
-                                <th>
+                                <th className="sort filter">
                                     <SortIcon sortDir={this.state.sortDir} sortBy={this.state.sortBy} prop="capital" onChange={this.sort.bind(this)} />
                                     <TextInput 
                                         label="Capital"

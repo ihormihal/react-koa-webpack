@@ -96,6 +96,23 @@ table {
 		tr {
 			th {
 				color: $colorPrimary;
+				vertical-align: bottom;
+				padding-bottom: 16px;
+				&.sort {
+					position: relative;
+					padding-left: 24px;
+					.sort-icon {
+						position: absolute;
+						left: 0;
+						bottom: 16px;
+					}
+				}
+				&.filter {
+					padding-bottom: 8px;
+					.form-group {
+						margin-bottom: 0;
+					}
+				}
 			}
 		}
 	}
