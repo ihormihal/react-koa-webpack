@@ -16,15 +16,14 @@ config.info = `${pkg.name} v.${pkg.version} ${new Date().toISOString()}`
 class WriteConfigPlugin {
     constructor(config, dist) {
         this.config = config
-        this.dist = dist
+        this.dist = path.resolve(__dirname, dist)
     }
     apply(compiler) {
         compiler.plugin("afterEmit", () => {
             const content = `var CONFIG = ${JSON.stringify(config)};`
             fs.writeFile(this.dist, content, () => {
-                console.log('Config saved')
+                console.log('Config saved', this.dist)
             })
-
         });
     }
 }
@@ -42,7 +41,7 @@ module.exports = {
     entry: ['./src/index.js'],
     output: {
         filename: './js/bundle.js',
-        publicPath: '/',
+        publicPath: '/dist/',
         path: path.resolve(__dirname, 'dist')
     },
     resolve: {

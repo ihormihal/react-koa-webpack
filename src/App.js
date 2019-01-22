@@ -27,7 +27,6 @@ export const store = createStore(
 )
 export const history = createBrowserHistory()
 
-
 i18n
     .use(reactI18nextModule)
     .init({

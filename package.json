@@ -26,8 +26,10 @@
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-security": "^1.4.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "koa-webpack": "^5.2.1",
     "mini-css-extract-plugin": "^0.4.2",
     "node-sass": "^4.9.3",
     "nodemon": "^1.18.4",
@@ -37,7 +39,8 @@
     "style-loader": "^0.23.0",
     "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "^4.18.1",
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.1.0",
+    "webpack-hot-client": "^4.1.1"
   },
   "dependencies": {
     "axios": "^0.18.0",
