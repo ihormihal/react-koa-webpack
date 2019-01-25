@@ -1,3 +1,7 @@
+const ENV = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'watch' ? 'development' : 'production'
+const REBUILD = process.env.NODE_ENV !== 'watch'
+
+
 const path = require('path')
 const fs = require('fs')
 const autoprefixer = require('autoprefixer')
@@ -8,9 +12,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-const config = require('./config.json')[process.env.NODE_ENV]
 const pkg = require('./package.json')
-config.info = `${pkg.name} v.${pkg.version} ${new Date().toISOString()}`
+const CONFIG = pkg.config[ENV]
+CONFIG.info = `${pkg.name} v.${pkg.version} ${new Date().toISOString()}`
 
 
 class WriteConfigPlugin {
@@ -20,7 +24,7 @@ class WriteConfigPlugin {
     }
     apply(compiler) {
         compiler.plugin("afterEmit", () => {
-            const content = `var CONFIG = ${JSON.stringify(config)};`
+            const content = `var CONFIG = ${JSON.stringify(CONFIG)};`
             fs.writeFile(this.dist, content, () => {
                 console.log('Config saved', this.dist)
             })
@@ -28,16 +32,33 @@ class WriteConfigPlugin {
     }
 }
 
-let minimizer = []
-if(process.env.NODE_ENV === 'production') {
-    minimizer = [
-        new UglifyJsPlugin({ sourceMap: true }),
-        new OptimizeCSSAssetsPlugin({})
-    ]
-}
+const plugins = [
+    new MiniCssExtractPlugin({
+        filename: './css/styles.css'
+    }),
+    new HtmlWebpackPlugin({
+        template: './src/index.html',
+        title: 'Test App',
+        minify: true
+    }),
+    new CopyWebpackPlugin([
+        { from: './src/assets/img', to: './img' },
+        { from: './src/assets/fonts', to: './fonts' },
+        { from: './src/assets/locales', to: './locales' },
+    ]),
+    new WriteConfigPlugin(CONFIG, './dist/js/config.js')
+]
+
+if(REBUILD) plugins.push(new CleanWebpackPlugin(['./dist']))
 
 module.exports = {
-    mode: process.env.NODE_ENV,
+    mode: ENV,
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: CONFIG.PORT,
+        historyApiFallback: true
+    },
     entry: ['./src/index.js'],
     output: {
         filename: './js/bundle.js',
@@ -49,7 +70,12 @@ module.exports = {
             '@': path.resolve(__dirname, 'src')
         }
     },
-    optimization: {  minimizer },
+    optimization: { 
+        minimizer: ENV === 'production' ? [ 
+            new UglifyJsPlugin({ sourceMap: true }), 
+            new OptimizeCSSAssetsPlugin({})
+        ] : []
+    },
     devtool: 'source-map',
     performance: { hints: false },
     module: {
@@ -90,21 +116,5 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        new CleanWebpackPlugin(['./dist']),
-        new MiniCssExtractPlugin({
-            filename: './css/styles.css'
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/index.html',
-            title: 'Test App',
-            minify: true
-        }),
-        new CopyWebpackPlugin([
-            { from: './src/assets/img', to: './img' },
-            { from: './src/assets/fonts', to: './fonts' },
-            { from: './src/assets/locales', to: './locales' },
-        ]),
-        new WriteConfigPlugin(config, './dist/js/config.js')
-    ]
+    plugins
 };
