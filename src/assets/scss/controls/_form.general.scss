@@ -20,7 +20,9 @@ $inlineInputs: 'textarea, select, input[type=text], input[type=search], input[ty
 		}
 		.help-block {
 			padding: 8px 0;
-			color: color(red);
+		}
+		label, .input-icon, .mtr, .help-block { 
+			color: color(red) !important; 
 		}
 		.mtr {
 			border-color: transparent !important;

@@ -23,7 +23,7 @@ class Select extends Dropdown {
             <div
                 className={`dropdown ${this.state.isOpen ? 'active ' : ''} ${this.props.className || ''}`}
             >
-                <span className={`toggle select mtr`} onClick={() => this.open()}>{ renderSelected(this.props.value) } <i className="arrow mdi mdi-chevron-down"></i></span>
+                {this.props.render ? this.props.render(this.props.value, () => this.open()) : <span className={`toggle select mtr`} onClick={() => this.open()}>{ renderSelected(this.props.value) } <i className="arrow mdi mdi-chevron-down"></i></span> }
                 <div className={`popup popup-select ${ this.state.positionClass } ${this.state.fadeOut ? 'fadeOut': ''}`} onAnimationEnd={this.animationEnd}>
                     <ul onClick={() => this.close()} className="collection links">
                         { 
@@ -47,7 +47,8 @@ Select.propTypes = {
     value: PropTypes.oneOfType([PropTypes.bool, PropTypes.string, PropTypes.number, PropTypes.object]),
     values: PropTypes.array,
     selected: PropTypes.func,
-    option: PropTypes.func
+    option: PropTypes.func,
+    render: PropTypes.func
 }
 
 export default Select

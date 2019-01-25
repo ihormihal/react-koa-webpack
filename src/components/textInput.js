@@ -34,8 +34,8 @@ class TextInput extends React.Component {
     }
 
     render () {
-        return (<div className={`form-group floating-label ${this.state.isFocus ? 'focus' : ''}`}>
-            <label>Capital</label>
+        return (<div className={`form-group floating-label ${this.props.className} ${this.props.hasError ? 'has-error' : ''} ${this.state.isFocus ? 'focus' : ''}`}>
+            {this.props.label && <label>{this.props.label}</label> }
             <div className={this.props.icon && 'input-icon'}>
                 <input 
                     className="full mtr" 
@@ -57,7 +57,9 @@ TextInput.propTypes = {
     icon: PropTypes.string,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onChange: PropTypes.func,
-    onBlur: PropTypes.func
+    onBlur: PropTypes.func,
+    className: PropTypes.string,
+    hasError: PropTypes.bool
 }
 
 export default TextInput

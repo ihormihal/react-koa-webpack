@@ -243,9 +243,10 @@ class FormPage extends React.Component {
 
                     <h3>Custom input</h3>
                     <TextInput
-                        label='Text label'
+                        label='Lorem ipsum dolor'
                         icon='magnify'
                         defaultValue={''}
+                        hasError={true}
                         onChange={(value) => console.log(value)}
                     />
                 </div>

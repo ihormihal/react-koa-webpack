@@ -7,7 +7,7 @@ const router = new Router()
 router.get('/api/card/:id', cards.getDetails)
 router.get('/api/card/:id/history', cards.getHistory)
 
-router.get('/api/countries', countries.search)
+router.post('/api/countries', countries.search)
 router.get('/api/country/:id', countries.get)
 
 module.exports = router

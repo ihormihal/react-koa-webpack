@@ -3,6 +3,7 @@ import connect from '@/connect'
 import TextInput from '@/components/textInput'
 import Pagination from '@/components/pagination'
 import Select from '@/components/select'
+import Dropdown from '@/components/dropdown'
 import Loader from '@/components/loader'
 
 import { getCountries } from '@/actions/countries'
@@ -112,7 +113,8 @@ class Administration extends React.Component {
         let search = this.state.search || {}
 
         if(search[key] !== value){
-            this.setState({ 
+            this.setState({
+                page: 0, 
                 search: {
                     ...search,
                     [key]: value
@@ -191,12 +193,27 @@ class Administration extends React.Component {
                             />
                         </div>
                         <div className="col-sm-4 text-right">
-                            <Select
+                            {/* <Select
+                                className="btn-select"
                                 position="top"
                                 value={this.state.onPage} 
                                 values={[10, 50, 100]}
                                 onChange={(value) => this.setPageSize(value) }
+                            /> */}
+                            <Select
+                                className="btn-select"
+                                position="top"
+                                value={this.state.onPage} 
+                                values={[10, 50, 100]}
+                                onChange={(value) => this.setPageSize(value) }
+                                render={(value, open) => <button onClick={() => open()} className="btn btn-primary">{value} <i className="mdi mdi-chevron-down"></i></button> }
                             />
+                            {/* <Dropdown 
+                                onClick={true}
+                                render={(closeFunc) => <ul className="collection links">
+                                    {[10, 50, 100].map(size => <li key={size} className={this.state.onPage === size ? 'active' : ''} onClick={() => { this.setPageSize(size); closeFunc(); }}>{size}</li>)}
+                                </ul>}
+                            ><button className="btn btn-primary">{this.state.onPage}</button></Dropdown> */}
                         </div>
                     </div>
                     
